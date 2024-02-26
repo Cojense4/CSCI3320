@@ -14,13 +14,12 @@ def merge_sort(array):
             print(result)
 
         # Add the remaining elements from the left and right arrays
-        result += left[i:]
         if i < len(left):
+            result += left[i:]
             print(f"\nAdded left:{left[i:]}")
-        result += right[j:]
         if j < len(right):
+            result += right[j:]
             print(f"\nAdded right:{right[j:]}")
-
         print(result)
         return result
 

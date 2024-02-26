@@ -79,11 +79,11 @@ def fun8(n, start=0, end=0, aux=0):
     fun8(n=n-1, start=start, aux=aux, end=end)
 
 
-def fun8_2(n):
+def fun8_2(n, r=0):
     if n == 1:
         print(" - DONE")
         return
-    fun8_2(n-1)
+    fun8_2(n-1, r)
     print(n)
     fun8_2(n-1)
 
@@ -101,13 +101,13 @@ def fib_sum(N):
         sumE += fib_sum(N - 2, sumE)
 
 
-print("1 = ", fun8(1))
-print("2 = ", fun8(2))
-print("3 = ", fun8(3))
-print("4 = ", fun8(4))
-print("5 = ", fun8(5))
-print("6 = ", fun8(6))
-print("7 = ", fun8(7))
-print("8 = ", fun8(8))
-print("9 = ", fun8(9))
+print("1 = ", fun8_2(1))
+print("2 = ", fun8_2(2))
+print("3 = ", fun8_2(3))
+print("4 = ", fun8_2(4))
+print("5 = ", fun8_2(5))
+print("6 = ", fun8_2(6))
+print("7 = ", fun8_2(7))
+print("8 = ", fun8_2(8))
+print("9 = ", fun8_2(9))
 
