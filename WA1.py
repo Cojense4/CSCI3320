@@ -16,14 +16,18 @@ def fun2(n):
         i *= 3          # C
 
 
-# O(n**5)
+# O(n**7)
 def fun3(n):
+    process = 0
     sumC = 0                        # C
-    for i in range(n):              # C
+    for i in range(n):              # N
+        process += 1
         for j in range(i*2, n**3):  # For loop = O(n**3/2i)
+            process += 1
             for k in range(j):      # For loop = O(n**3/2i)
+                process += 1
                 sumC += 1           # C
-    return sumC
+    return sumC, process
 
 
 # O(n**4)
@@ -32,7 +36,7 @@ def fun4(n):
     sumD = 0                        # C
     for i in range(n):              # N
         process += 1
-        for j in range(i*2, n**3):  # N**3
+        for j in range(i*2, n**3):  # N**3/2i
             process += 1
             if j < i:               # Never happens: N
                 process += 1
@@ -64,8 +68,10 @@ def fun6(n):
         print(" * ", end="")
 
 
-def fun8(n, start, end, aux):
+def fun8(n, start=0, end=0, aux=0):
+    processes = 0
     if n == 1:
+        processes += 1
         print("Move disk 1 from", start, "to", end, " - DONE")
         return
     fun8(n=n-1, start=start, aux=aux, end=end)
@@ -95,13 +101,13 @@ def fib_sum(N):
         sumE += fib_sum(N - 2, sumE)
 
 
-print("1 = ", fun3(1))
-print("2 = ", fun3(2))
-print("3 = ", fun3(3))
-print("4 = ", fun3(4))
-print("5 = ", fun3(5))
-print("6 = ", fun3(6))
-print("7 = ", fun3(7))
-print("8 = ", fun3(8))
-print("9 = ", fun3(9))
+print("1 = ", fun8(1))
+print("2 = ", fun8(2))
+print("3 = ", fun8(3))
+print("4 = ", fun8(4))
+print("5 = ", fun8(5))
+print("6 = ", fun8(6))
+print("7 = ", fun8(7))
+print("8 = ", fun8(8))
+print("9 = ", fun8(9))
 
