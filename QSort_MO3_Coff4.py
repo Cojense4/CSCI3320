@@ -1,36 +1,24 @@
 def quicksort(array):
-    def median_of_three(array):
-        first = array[0]
-        middle = array[len(array) // 2]
-        last = array[-1]
+    def median_of_three(array, left, right):
+        mid = (left + right) // 2
+        a = array[left]
+        b = array[mid]
+        c = array[right]
 
-        if first < middle < last:
-            return middle
-        elif last < middle < first:
-            return middle
-        elif first < last < middle:
-            return last
-        elif middle < last < first:
-            return last
-        elif middle < first < last:
-            return first
-        else:
-            return first
-
-    def partition(array, pivot):
-        less = []
-        equal = []
-        greater = []
-
-        for element in array:
-            if element < pivot:
-                less.append(element)
-            elif element == pivot:
-                equal.append(element)
+        if a < b:
+            if b < c:
+                return b
+            elif a < c:
+                return c
             else:
-                greater.append(element)
-
-        return less, equal, greater
+                return a
+        else:
+            if c < b:
+                return b
+            elif c < a:
+                return c
+            else:
+                return a
 
     def insertion_sort(array):
         for i in range(1, len(array)):
@@ -42,20 +30,31 @@ def quicksort(array):
 
             array[j + 1] = current_element
 
-        return array
-
     if len(array) <= 4:
-        return insertion_sort(array)
+        insertion_sort(array)
+        return
 
     # Choose the median of the first, middle, and last elements as the pivot
-    pivot = median_of_three(array)
-    # Partition the array around the pivot
-    less, equal, greater = partition(array, pivot)
+    pivot = median_of_three(array, 0, len(array) - 1)
 
-    # Recursively sort the less and greater subarrays
-    return quicksort(less) + equal + quicksort(greater)
+    # Partition the array around the pivot
+    i = 0
+    j = len(array) - 1
+    while i < j:
+        while array[i] < pivot:
+            i += 1
+        while array[j] > pivot:
+            j -= 1
+
+        if i < j:
+            array[i], array[j] = array[j], array[i]
+            i += 1
+            j -= 1
+    # Recursively sort the two subarrays
+    quicksort(array[:i])
+    quicksort(array[i:])
 
 
 nList = [12, 4, 3, 9, 18, 7, 2, 17, 13, 1, 5, 6]
-ans = quicksort(nList)
-print(ans)
+quicksort(nList)
+print(nList)
