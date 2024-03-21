@@ -41,6 +41,7 @@ class DLinkedList:
     def locInsert(self, data):
         pass
 
+
 class SLinkedList:
     def __init__(self):
         self.tail = None
