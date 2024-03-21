@@ -81,7 +81,6 @@ def printInOrder(list):  # Recurse starting with the head node
 
 def printInReverseOrder(list):  # Edit this function
     """Print the values of a linked list in reverse order using only recursion"""
-
     def printReverse(node):
         if node == list.head:
             printReverse(node.next)
@@ -144,28 +143,40 @@ class Stack:  # Edit this class
 
 class Queue:  # Edit this class
     def __init__(self):
-        self.list = SinglyLinkedList()  # A linked list to be used
+        self.list = SinglyLinkedList()
         self.count = 0  # the number of elements
 
-    # Insert a new element into the queue 
-    # i.e just insert a new element at the end of the linked list.
     def enqueue(self, data):
-        pass
+        # Insert a new element into the queue
+        # i.e just insert a new element at the end of the linked list.
+        self.count += 1
+        return self.list.append(data)
 
-    # Remove the front element from the queue
-    # i.e just delete and return an element 
-    # at the beginning of the linked list
-    # if the list is not empty
     def dequeue(self):
-        pass
+        # Remove the front element from the queue
+        # i.e just delete and return an element
+        # at the beginning of the linked list
+        # if the list is not empty
+        if self.count >= 1:
+            self.count -= 1
+            return self.list.delete_first_node()
 
-    # Returns the top element of the stack if the list is not empty
     def front(self):
-        pass
+        # Returns the top element of the stack if the list is not empty
+        if self.count >= 1:
+            return self.list.head.data
 
-    # Prints out the queue
-    def printQueue(self):
-        pass
+    def printQueue(self):   # Prints out the queue
+        def printNextQueue(node=self.list.head):
+            if node is None:
+                return
+            # Print to the console
+            if node.next is not None:
+                print(str(node.data), " <= ", end='')
+            else:
+                print(str(node.data))
+            printNextQueue(node.next)
+        printNextQueue()
 
 
 # Only run this code if it is called directly from the command line
@@ -177,6 +188,7 @@ if __name__ == "__main__":
     # You must modify the following codes to implement
     # a menu driven user interface at the command line
 
+    # Implement a Singly Linked List
     words = SinglyLinkedList()
     words.append('egg')
     words.append('ham')
@@ -186,14 +198,7 @@ if __name__ == "__main__":
     words.prepend('spam2')
     printInOrder(words)
 
-    # Print in Reverse Order
-    printInReverseOrder(words)
-
-    # Reverse the List
-    reverseList(words)
-    printInOrder(words)
-
-    # Implement a stack using a Linked List
+    # Implement a stack using a Singly Linked List
     wordStack = Stack()
     wordStack.push("egg")
     wordStack.push("ham")
@@ -201,14 +206,19 @@ if __name__ == "__main__":
     wordStack.push("egg2")
     wordStack.push("ham2")
     wordStack.push("spam2")
-    # push() method
-    wordStack.push("TEST")
-    print(wordStack.top())
-    # pop() method
-    wordStack.pop()
-    print(wordStack.top())
-    # printStack() method
     wordStack.printStack()
+
+    # Implement a Queue using a Singly Linked List
+    wordQueue = Queue()
+    wordQueue.enqueue("egg")
+    wordQueue.enqueue("ham")
+    wordQueue.enqueue("spam")
+    wordQueue.enqueue("egg2")
+    wordQueue.enqueue("ham2")
+    wordQueue.enqueue("spam2")
+    wordQueue.printQueue()
+    print(wordQueue.dequeue())
+    wordQueue.printQueue()
 
     print(f'\ndeleted-first: {words.delete_first_node()}')
     printInOrder(words)
