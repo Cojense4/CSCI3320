@@ -43,7 +43,7 @@ def QS(NList):
     return QS(NList)
 
 
-nList = [5, 2, 4, 7, 8, 3, 9, 6, 1]
+nList = [12, 4, 3, 9, 18, 7, 2, 17, 13, 1, 5, 6]
 print(nList)
 ans = QS(nList)
 print(ans)
