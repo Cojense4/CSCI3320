@@ -50,6 +50,7 @@ def quicksort(array):
             array[i], array[j] = array[j], array[i]
             i += 1
             j -= 1
+
     # Recursively sort the two subarrays
     quicksort(array[:i])
     quicksort(array[i:])
