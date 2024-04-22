@@ -112,12 +112,13 @@ def printInReverseOrder(singleLL):
 
 def reverseList(singleLL):
     """Reverse the singly linked list *in place* using recursion."""
-    def reverseRecursion(node):
-        if node is not singleLL.head:
-            singleLL.append(singleLL.delete_first_node())
-            reverseRecursion(node.next)
-    reverseRecursion(singleLL.head)
-
+    def reverseRecursion(node, prev=None):
+        if not node:
+            return prev
+        next_node = node.next
+        node.next = prev
+        return reverseRecursion(next_node, node)
+    singleLL.head = reverseRecursion(singleLL.head)
 
 class Stack:
     """FIFO (first in first out) methods to manipulate a SinglyLinkedList() object"""
@@ -285,7 +286,7 @@ def main():
         elif option == 3:
             printInReverseOrder(L1)
         elif option == 4:
-            reverseList()
+            reverseList(L1)
         elif option == 5:
             S1 = Stack()
             for value in values:
