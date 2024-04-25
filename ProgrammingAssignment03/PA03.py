@@ -2,9 +2,16 @@ from random import randint
 import time
 
 
-def quadratic_algorithm(n_array_A, k_twinSum_value):
+def n_squared_algorithm(n_array_A, k_twinSum_value, cur_time):
     pass
 
+
+def n_log_n_algorithm(n_array_A, k_twinSum_value, cur_time):
+    pass
+
+
+def n_algorithm(n_array_A, k_twinSum_value, cur_time):
+    pass
 
 def main():
     n = int(input("Enter size of random array: "))
@@ -22,7 +29,13 @@ def main():
 
 
 if __name__ == '__main__':
+    cur_time = time.time()
     A, K = main()
     print("Running the alorithms ...")
-    quadratic_algorithm(A, K)
+    cur_time = time.time()
+    n_squared_result, n_squared_time = n_squared_algorithm(A, K, cur_time)
+    cur_time = time.time()
+    n_log_n_result, n_log_n_time = n_log_n_algorithm(A, K, cur_time)
+    cur_time = time.time()
+    n_result, n_time = n_algorithm(A, K, cur_time)
     print(A, "\n", K)
