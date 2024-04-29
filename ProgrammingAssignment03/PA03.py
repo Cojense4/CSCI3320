@@ -2,70 +2,175 @@ from random import randint
 from time import time_ns
 
 
-def nSquared(nArray, kValue, curTime):
-    for i in range(len(nArray)):
-        for j in range(i+1, len(nArray)):
-            if nArray[i] + nArray[j] == kValue:
-                return [True, f'({nArray[i]} + {nArray[j]})'], time_ns() - curTime
-    return False, time_ns() - curTime
+def nSquared(n_array, k_value, cur_time):
+    """
+    This function checks if there are two numbers in the array whose sum equals to K using a brute force approach.
+
+    It iterates over each pair of numbers in the array and checks if their sum equals to K. If such a pair is found, the function returns True and the two numbers.
+    If no such pair is found after checking all pairs, the function returns False and None.
+
+    Parameters:
+    n_array (list): The array to be checked.
+    k_value (int): The target sum.
+    cur_time (int): The current time in nanoseconds.
+
+    Returns:
+    list: A list containing a boolean indicating whether two numbers whose sum equals to K were found,
+          and a string representation of the two numbers if found.
+    int: The computation time in nanoseconds.
+    """
+    for i in range(len(n_array)):
+        for j in range(i+1, len(n_array)):
+            if n_array[i] + n_array[j] == k_value:
+                return [True, f'({n_array[i]} + {n_array[j]})', time_ns() - cur_time]
+    return [False, None, time_ns() - cur_time]
 
 
-def nlogn(nArray, kValue, curTime):
-    nArray.sort()  # Sort the array in ascending order
+def nlogn(n_array, k_value, cur_time):
+    """
+    This function checks if there are two numbers in the array whose sum equals to K using a two-pointer approach.
+
+    The array is first sorted in ascending order. Two pointers, one at the start and one at the end of the array, are used.
+    The sum of the numbers at the two pointers is compared with K. If the sum is equal to K, the function returns True and the two numbers.
+    If the sum is less than K, the left pointer is moved one step to the right. If the sum is greater than K, the right pointer is moved one step to the left.
+    This process continues until the two pointers meet. If no two numbers whose sum equals to K are found, the function returns False and None.
+
+    Parameters:
+    n_array (list): The array to be checked.
+    k_value (int): The target sum.
+    cur_time (int): The current time in nanoseconds.
+
+    Returns:
+    list: A list containing a boolean indicating whether two numbers whose sum equals to K were found,
+          and a string representation of the two numbers if found.
+    int: The computation time in nanoseconds.
+    """
+
+    n_array.sort()  # Sort the array in ascending order
     left = 0
-    right = len(nArray) - 1
+    right = len(n_array) - 1
     while left < right:
-        currentSum = nArray[left] + nArray[right]
-        if currentSum == kValue:
-            return [True, f'({nArray[left]} + {nArray[right]})'], time_ns() - curTime
-        elif currentSum < kValue:
+        currentSum = n_array[left] + n_array[right]
+        if currentSum == k_value:
+            return [True, f'({n_array[left]} + {n_array[right]})', time_ns() - cur_time]
+        elif currentSum < k_value:
             left += 1
         else:
             right -= 1
-    return False, time_ns() - curTime
+    return [False, None, time_ns() - cur_time]
 
 
-def n(nArray, kValue, curTime):
+def n(n_array, k_value, cur_time):
+    """
+    This function checks if there are two numbers in the array whose sum equals to K using a dictionary.
+
+    Parameters:
+    n_array (list): The array to be checked.
+    k_value (int): The target sum.
+    cur_time (int): The current time in nanoseconds.
+
+    Returns:
+    list: A list containing a boolean indicating whether two numbers whose sum equals to K were found,
+          and a string representation of the two numbers if found.
+    int: The computation time in nanoseconds.
+    """
+
+    # Initialize an empty dictionary
     num_dict = {}
-    for i in range(len(nArray)):
-        complement = kValue - nArray[i]
+
+    # Iterate over the array
+    for i in range(len(n_array)):
+        # Calculate the complement of the current number
+        complement = k_value - n_array[i]
+
+        # If the complement is in the dictionary, return True and the two numbers
         if complement in num_dict:
-            return [True, f'({nArray[i]} + {complement})'], time_ns() - curTime
-        num_dict[nArray[i]] = i
-    return False, time_ns() - curTime
+            return [True, f'({n_array[i]} + {complement})', time_ns() - cur_time]
+
+        # Add the current number to the dictionary
+        num_dict[n_array[i]] = i
+
+    # If no two numbers whose sum equals to K were found, return False and None
+    return [False, None, time_ns() - cur_time]
+
 
 def main(n):
+    """
+    This function generates an array of random integers and asks the user to input a value for K.
+
+    Parameters:
+    n (int): The size of the array to be generated.
+
+    Returns:
+    tuple: A tuple containing the generated array and the user-inputted K value.
+    """
+
+    # Check if the size of the array is less than 50
     if n < 50:
-        nArray = []
+        # Initialize an empty array
+        n_array = []
+        # Populate the array with random integers between -99 and 99
         for i in range(n):
-            nArray.append(randint(-99, 99))
-        print(nArray)
+            n_array.append(randint(-99, 99))
+        # Print the generated array
+        print(n_array)
     else:
-        nArray = []
+        # Initialize an empty array
+        n_array = []
+        # Populate the array with random integers between -99 and 99
         for i in range(n):
-            nArray.append(randint(-99, 99))
-    kValue = int(input("Enter the K value: "))
-    return nArray, kValue
+            n_array.append(randint(-99, 99))
+
+    # Ask the user to input a value for K
+    k_value = int(input("Enter the K value: "))
+
+    # Return the generated array and the K value
+    return n_array, k_value
 
 
 if __name__ == '__main__':
+    """
+    This is the main entry point of the program. It prompts the user to input the size of a random array.
+    It then generates the array and asks the user to input a value for K.
+    It runs three different algorithms to check if there are two numbers in the array whose sum equals to K.
+    It prints the results and the computation time for each algorithm.
+    The program continues to prompt the user to input the size of a random array until the user inputs 0.
+    """
+
+    # Prompt the user to input the size of a random array
     nSize = int(input('Enter size of random array (0 to exit): '))
+
+    # Continue to prompt the user until they input 0
     while nSize:
+        # Generate the array and ask the user to input a value for K
         A, K = main(nSize)
+
+        # Print a message indicating that the algorithms are running
         print("Running the algorithms...")
+
+        # Run the three different algorithms
         for i in range(3):
             if i == 0:
-                result, compTime = nSquared(A, K, time_ns())
+                # Run the O(N**2) algorithm
+                result = nSquared(A, K, time_ns())
                 print(f'\n<O(N**2) Algorithm>')
             elif i == 1:
-                result, compTime = nlogn(A, K, time_ns())
+                # Run the O(NlogN) algorithm
+                result = nlogn(A, K, time_ns())
                 print(f'\n<O(NlogN) Algorithm>')
             else:
-                result, compTime = n(A, K, time_ns())
+                # Run the O(N) algorithm
+                result = n(A, K, time_ns())
                 print(f'\n<O(N) Algorithm>')
+
+            # Print the results and the computation time
             if result[0]:
                 print('\tYes, there are two numbers whose sum equals to K')
-                print(f'\tK={K}, {result[1]}')
+                print(f'\tK = {K}, {result[1]}')
             else:
                 print(f'\tNo, there are no two numbers whose sum equals to K')
-            print(f'\tTime taken: {compTime} ns')
+            print(f'\tTime taken: {result[2]} ns')
+
+        # Prompt the user to input the size of a random array again
+        nSize = int(input('Enter size of random array (0 to exit): '))
+
